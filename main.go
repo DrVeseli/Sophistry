@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 
 	"github.com/russross/blackfriday/v2"
@@ -52,14 +51,14 @@ func convertMarkdownToHTML(mdPath string) (string, error) {
 	return string(finalHTMLContent), nil
 }
 
-func replaceCustomLinks(content []byte) []byte {
-	re := regexp.MustCompile(`\[\[([^\]]+)\]\]`)
-	return re.ReplaceAllFunc(content, func(match []byte) []byte {
-		linkText := string(match[2 : len(match)-2]) // Extracting the content inside [[ ]]
-		link := fmt.Sprintf("[%s.html](%s.html)", linkText, linkText)
-		return []byte(link)
-	})
-}
+// func replaceCustomLinks(content []byte) []byte {
+// 	re := regexp.MustCompile(`\[\[([^\]]+)\]\]`)
+// 	return re.ReplaceAllFunc(content, func(match []byte) []byte {
+// 		linkText := string(match[2 : len(match)-2]) // Extracting the content inside [[ ]]
+// 		link := fmt.Sprintf("[%s.html](%s.html)", linkText, linkText)
+// 		return []byte(link)
+// 	})
+// }
 
 func saveHTMLFile(mdPath, htmlContent, blogDir string) error {
 	htmlFileName := strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath)) + ".html"
@@ -114,6 +113,25 @@ func main() {
 	}
 
 	createIndexHTML(directoryLinks, blogDir)
+	// Change the working directory to "Blog"
+	err = os.Chdir(blogDir)
+	if err != nil {
+		fmt.Printf("Error changing directory to %s: %s\n", blogDir, err)
+		promptToExit()
+	}
+	// Run Netlify deploy command
+	err = runNetlifyDeployCommand()
+	if err != nil {
+		fmt.Printf("Error running Netlify deploy command: %s\n", err)
+		promptToExit()
+	}
+
+	promptToExit()
+}
+
+func promptToExit() {
+	fmt.Println("Press Enter to exit.")
+	fmt.Scanln()
 }
 
 func createIndexHTML(directoryLinks map[string][]string, blogDir string) {
@@ -130,12 +148,14 @@ func createIndexHTML(directoryLinks map[string][]string, blogDir string) {
 		fmt.Printf("Error reading %s: %s\n", FooterFilePath, err)
 		return
 	}
+	// Replace the placeholder "{{TITLE}}" with the file name in the header content
+	headerContent = bytes.ReplaceAll(headerContent, []byte("{{TITLE}}"), []byte("BLOG"))
 
 	// Combine header content with index-specific content
-	indexContent := append(headerContent, []byte("<h1>Index</h1>")...)
+	indexContent := append(headerContent, []byte("<pre>by Marko Veselinovic</pre>")...)
 
 	for dir, files := range directoryLinks {
-		indexContent = append(indexContent, []byte("<h2>"+dir+"</h2><ul>")...)
+		indexContent = append(indexContent, []byte("<h2 class='accordion-item' onclick='toggleFunction(this)'>"+dir+"<span class='arrow'>▲</span></h2><ul class='accordion-content'>")...)
 		for _, file := range files {
 			htmlFileName := file[:len(file)-3] + ".html"
 			link := filepath.Join(htmlFileName)
@@ -145,7 +165,7 @@ func createIndexHTML(directoryLinks map[string][]string, blogDir string) {
 	}
 
 	indexContent = append(indexContent, footerContent...)
-	indexContent = append(indexContent, []byte("</body></html>")...)
+	//indexContent = append(indexContent, []byte("</body></html>")...)
 
 	err = os.WriteFile(filepath.Join(blogDir, "index.html"), indexContent, 0644)
 	if err != nil {
