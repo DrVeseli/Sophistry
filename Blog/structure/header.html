@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <!-- Default Stylesheet -->
+    <link rel="stylesheet" href="structure\styles\default.css">
+    <link rel="stylesheet" href="structure/styles/dark.css" id="stylesheet">
+    <!-- Add your other stylesheets for light mode, etc. -->
+    <link rel="stylesheet" href="structure/styles/light-mode.css" id="light-mode-stylesheet" disabled>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for 'dysl' parameter in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('dysl')) {
+                // Add 'opendyslexic' class to the body
+                document.body.classList.add('opendyslexic');
+            }
+
+            // Check for 'light' parameter in the URL
+            if (urlParams.has('light')) {
+                // Enable the light mode stylesheet
+                document.getElementById('light-mode-stylesheet').disabled = false;
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+
+            <!-- Logo or Icon on the left side -->
+            <div class="logo">
+                <a href="/">
+                    VESKO
+                </a>
+            </div>
+    
+            <!-- Buttons on the right side -->
+            <div class="buttons">
+                <button onclick="toggleOpenDyslexic()">Dyslexia Mode</button>
+                <!-- light Mode Button -->
+                <button onclick="toggleLightMode()">Light Mode</button>
+            </div>
+
+    </header>
+    <h1>{{TITLE}}</h1>
+    <div>
+     
+        

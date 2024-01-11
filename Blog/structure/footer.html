@@ -1,0 +1,105 @@
+</div>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R9N0V6Q40P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R9N0V6Q40P');
+</script>
+<script>
+    function toggleFunction(element) {
+      const content = element.nextElementSibling;
+
+      // Toggle the visibility of the content
+      content.style.display =
+        content.style.display === "none" ? "block" : "none";
+
+        element.classList.toggle('expanded');
+    }
+    function toggleOpenDyslexic() {
+      // Get the current URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // Check if 'dysl' parameter is present
+      if (urlParams.has("dysl")) {
+        // Remove 'dysl' parameter
+        urlParams.delete("dysl");
+      } else {
+        // Add 'dysl' parameter
+        urlParams.set("dysl", "1");
+      }
+
+      // Create a new URL with the modified parameters
+      const newUrl = window.location.pathname + "?" + urlParams.toString();
+
+      // Update the URL
+      history.pushState({}, "", newUrl);
+
+      // Toggle the class on the body element
+      document.body.classList.toggle("opendyslexic");
+    }
+
+    function toggleLightMode() {
+      // Get the current URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // Get the light mode stylesheet element
+      const lightModeStylesheet = document.getElementById(
+        "light-mode-stylesheet"
+      );
+
+      // Toggle the 'disabled' attribute
+      lightModeStylesheet.disabled = !lightModeStylesheet.disabled;
+
+      // Check if 'light' parameter is present
+      if (urlParams.has("light")) {
+        // Remove 'light' parameter
+        urlParams.delete("light");
+      } else {
+        // Add 'light' parameter
+        urlParams.set("light", "1");
+      }
+
+      // Create a new URL with the modified parameters
+      const newUrl = window.location.pathname + "?" + urlParams.toString();
+
+      // Update the URL
+      history.pushState({}, "", newUrl);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all links on the page
+      const allLinks = document.querySelectorAll("a");
+
+      // Attach a click event listener to each link
+      allLinks.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+          // Get the current URL parameters
+          const urlParams = new URLSearchParams(window.location.search);
+
+          // Prevent the default behavior of the link
+          event.preventDefault();
+
+          // Get the existing href attribute of the link
+          const originalHref = link.getAttribute("href");
+
+          // Create a new URL object for the link
+          const linkUrl = new URL(originalHref, window.location.href);
+
+          // Append existing parameters to the link
+          urlParams.forEach(function (value, key) {
+            linkUrl.searchParams.set(key, value);
+          });
+
+          // Redirect to the modified URL
+          window.location.href = linkUrl.href;
+        });
+      });
+    });
+  </script>
+<footer>Thanks for visiting! <a href="https://github.com/DrVeseli">My GitHub</a></footer>
+    
+</body>
+</html>

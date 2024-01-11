@@ -1,0 +1,143 @@
+/* Add more styles for your content in night mode as needed */
+@font-face {
+    font-family: 'OpenDyslexic3';
+    src: url('./font/OpenDyslexic3-Regular.ttf') format('truetype');
+    /* You can also include additional font formats for better browser compatibility */
+}
+.opendyslexic {
+    font-family: 'OpenDyslexic3' !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    
+}
+
+code {
+    color: var(--secondary-color);
+    font-size: 11px !important;
+    font-family: monospace !important;
+}
+
+div {
+    flex-grow: 1;
+    
+}
+
+.logo a {
+    color: var(--secondary-color);
+    font-size: x-large;
+    margin-left: 5px;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    text-decoration: none;
+
+}
+
+header {
+    max-width: 700px;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.buttons {
+    flex-grow: 0;
+    
+}
+
+.buttons button:hover {
+    background-color: var(--accent-color);
+}
+
+a {
+    color: var(--secondary-color);
+}
+
+h1 {
+    padding-top: 2em;
+    text-align: center;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+}
+h2, h3, p {
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: larger;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+li {
+    padding: 5px;
+    font-size: large;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+pre {
+  font-size: 1em;
+  border: 2px solid var(--accent-color);
+  max-width: 80%;
+  padding: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: scroll;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar {
+    background-color: var(--accent-color);
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-corner {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    position: relative;
+    margin-top: 2em;
+}
+
+
+
+
+
+  
+  .accordion-item {
+    cursor: pointer;
+
+  }
+  
+  .accordion-content {
+    list-style: circle;
+  }
+  
+
+  .accordion-item .arrow {
+    position: absolute;
+    margin-left: 1em;
+    transition: transform 0.5s;
+  }
+  
+  .accordion-item.expanded .arrow {
+    transform: rotate(180deg);
+  }
