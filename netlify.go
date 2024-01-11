@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
 )
 
 func runNetlifyDeployCommand() error {
@@ -12,8 +11,8 @@ func runNetlifyDeployCommand() error {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	// Provide newline character as input to accept the default publish directory
-	cmd.Stdin = strings.NewReader("\n")
+	// Provide newline character as input to accept the default publish directory, disabled because of the initial setup
+	//cmd.Stdin = strings.NewReader("\n")
 
 	fmt.Println("Running Netlify deploy command...")
 

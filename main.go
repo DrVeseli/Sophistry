@@ -143,7 +143,8 @@ func createIndexHTML(directoryLinks map[string][]string, blogDir string) {
 	headerContent = bytes.ReplaceAll(headerContent, []byte("{{TITLE}}"), []byte("BLOG"))
 
 	// Combine header content with index-specific content
-	indexContent := append(headerContent, []byte("<pre>by Marko Veselinovic</pre>")...)
+	//indexContent := append(headerContent, []byte("<pre>by Marko Veselinovic</pre>")...)
+	indexContent := headerContent
 
 	for dir, files := range directoryLinks {
 		indexContent = append(indexContent, []byte("<h2 class='accordion-item' onclick='toggleFunction(this)'>"+dir+"<span class='arrow'>▲</span></h2><ul class='accordion-content'>")...)

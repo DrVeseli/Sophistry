@@ -1,4 +1,4 @@
-module convert
+module Sophistry
 
 go 1.21.1
 
